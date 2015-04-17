@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Test Page</title>
+    <script src="http://code.jquery.com/jquery-1.7.2.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
+    <script src="http://localhost:5000/static/js/busiq.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+</head>
+<body>
+
+<h1>This is a test page to simulate FluidReview invite page!</h1>
+
+<form action="../" method="POST" class="basic">
+
+		<p>
+			To add a new member or co-applicant to your submission, please fill in all of the required information about the individual below.<br />
+<br />
+* Owner:&nbsp;Principal applicant<br />
+* Standard Member: has abilty to view and modify the application<br />
+* Read-only Member: has ability to view the application only
+		</p>
+
+
+
+
+		<table class="padded">
+
+				<tr>
+					<td>
+						<div class="field">
+							<label for="id_first_name">First name:</label>
+						</div>
+					</td>
+
+					<td>
+						<div class="field">
+							<input id="id_first_name" maxlength="255" name="first_name" type="text" />
+						</div>
+					</td>
+				</tr>
+
+
+
+				<tr>
+					<td>
+						<div class="field">
+							<label for="id_last_name">Last name:</label>
+						</div>
+					</td>
+
+					<td>
+						<div class="field">
+							<input id="id_last_name" maxlength="255" name="last_name" type="text" />
+						</div>
+					</td>
+				</tr>
+
+
+
+				<tr>
+					<td>
+						<div class="field">
+							<label for="id_email">Email:</label>
+						</div>
+					</td>
+
+					<td>
+						<div class="field">
+							<input id="id_email" name="email" type="email" />
+						</div>
+					</td>
+				</tr>
+
+
+
+				<tr>
+					<td>
+						<div class="field">
+							<label for="id_access_level">Access Level:</label>
+						</div>
+					</td>
+
+					<td>
+						<div class="field">
+							<select id="id_access_level" name="access_level">
+<option value="3">Owner</option>
+<option value="1" selected="selected">Standard member</option>
+<option value="2">Read-only member</option>
+</select>
+						</div>
+					</td>
+				</tr>
+
+
+
+
+			<tr>
+				<td></td>
+
+				<td>
+					<input type="submit" value="Submit" />
+				</td>
+			</tr>
+		</table>
+	</form>
+</body>
+</html>

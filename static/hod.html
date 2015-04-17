@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Test Page</title>
+    <script src="http://code.jquery.com/jquery-1.7.2.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
+    <script src="http://localhost:5000/static/js/busiq.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+</head>
+<body>
+
+<h1>This is a test page to simulate FluidReview invite page!</h1>
+
+	<div id="recommendations">
+		<form action="." method="POST">
+
+			<p class="help">
+
+		<div id="editable-text-recommenders_submission_form" class="editable-text-wrapper ">
+			<div name="recommenders_submission_form" class="editable-text">
+				<div class="click-to-edit">
+					Click to add or edit this text
+				</div>
+				<div class="value" style="outline: 0px solid transparent;" contenteditable="true" id="ck-value-recommenders_submission_form">Please use the form below to identify your Department Head who will need to sign-off on ths proposal.</div>
+			</div>
+
+			<div id="editor-recommenders_submission_form" class="editable-text-editor">
+				<div class="editable-tools">
+					<a class="button save-text" href="#">
+						<span class="icon save">Save</span>
+					</a>
+
+					<a class="button cancel" href="#">
+						<span>Cancel</span>
+					</a>
+				</div>
+
+
+			</div>
+		</div>
+
+			</p>
+
+			<div>
+				<label for="id_first_name">First name:</label>
+			</div>
+
+			<div class="field">
+				<input id="id_first_name" maxlength="255" name="first_name" type="text" />
+			</div>
+
+
+
+			<br>
+
+			<div>
+				<label for="id_last_name">Last name:</label>
+			</div>
+
+			<div class="field">
+				<input id="id_last_name" maxlength="255" name="last_name" type="text" />
+			</div>
+
+
+
+			<br>
+
+			<div>
+				<label for="id_email">Email address:</label>
+			</div>
+
+			<div class="field">
+				<input id="id_email" name="email" type="email" />
+			</div>
+
+
+
+			<br>
+
+			<div>
+				<label for="id_verify_email">Email address (again):</label>
+			</div>
+
+			<div class="field">
+				<input id="id_verify_email" name="verify_email" type="email" />
+			</div>
+
+
+
+			<br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		<div id="editable-text-recommenders_submission_new" class="editable-text-wrapper ">
+			<div name="recommenders_submission_new" class="editable-text">
+				<div class="click-to-edit">
+					Click to add or edit this text
+				</div>
+				<div class="value" style="outline: 0px solid transparent;" contenteditable="true" id="ck-value-recommenders_submission_new"><!--<p class="help"><br />
+In order to ensure success, please make sure to inform your recommender that they will be getting an email requesting a recommendation. Sometimes these emails may get caught in spam so please ask them to check their spam folder in the event that they don&#39;t see the recommendation request.</p>
+
+<p class="help"><br />
+<strong>Note: </strong> If your recommender doesn&#39;t receive an email within 24 hours, you can try resending the request.<br />
+If the recommender still doesn&#39;t get the email, please contact us at <a href="mailto:tech@fluidreview.com">tech@fluidreview.com</a>.<br />
+Please be sure to include the email address of your recommender.</p>--></div>
+			</div>
+
+			<div id="editor-recommenders_submission_new" class="editable-text-editor">
+				<div class="editable-tools">
+					<a class="button save-text" href="#">
+						<span class="icon save">Save</span>
+					</a>
+
+					<a class="button cancel" href="#">
+						<span>Cancel</span>
+					</a>
+				</div>
+			</div>
+		</div>
+
+
+			<input type="submit" value="Submit" />
+		</form>
+	</div>
+</body>
+</html>
