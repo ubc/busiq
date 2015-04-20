@@ -6,7 +6,7 @@ $(function() {
     //$("#id_email").attr('readonly', true);
     //$("#id_verify_email").attr('readonly', true);
     // hook up autocomplete for first and last name field
-    $("#id_first_name, #id_last_name").autocomplete({
+    $("#id_first_name, #id_last_name, #id_email").autocomplete({
         source: function(request, response) {
             var self = this;
             var field_name = this.element.attr('name');

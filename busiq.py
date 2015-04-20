@@ -39,9 +39,9 @@ def getStaffFields():
 
 
 parser = reqparse.RequestParser()
-parser.add_argument('q', type=str)
 parser.add_argument('first_name', type=str)
 parser.add_argument('last_name', type=str)
+parser.add_argument('email', type=str)
 
 
 class Busiq(restful.Resource):
@@ -49,16 +49,19 @@ class Busiq(restful.Resource):
         args = parser.parse_args()
         query = db.session.query(Staff)
         if args['first_name']:
-            filter = query.filter(Staff.first_name.like('%'+args['first_name']+'%'))
+            db_filter = query.filter(Staff.first_name.like('%'+args['first_name']+'%'))
         elif args['last_name']:
-            filter = query.filter(Staff.last_name.like('%'+args['last_name']+'%'))
+            db_filter = query.filter(Staff.last_name.like('%'+args['last_name']+'%'))
+        elif args['email']:
+            # allow user to use first name or last name to search in email field
+            db_filter = query. \
+                filter(or_(Staff.first_name.like('%'+args['email']+'%'),
+                           Staff.last_name.like('%'+args['email']+'%'),
+                           Staff.email.like('%'+args['email']+'%')))
         else:
-            filter = db.session.query(Staff). \
-                filter(or_(Staff.first_name.like('%'+args['q']+'%'),
-                           Staff.last_name.like('%'+args['q']+'%'),
-                           Staff.email.like('%'+args['q']+'%')))
+            return {'staff': {}}
 
-        result = filter.order_by(Staff.first_name).all()
+        result = db_filter.order_by(Staff.first_name).all()
 
         return {'staff': marshal(result, getStaffFields())}
 
