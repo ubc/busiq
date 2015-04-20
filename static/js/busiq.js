@@ -3,23 +3,24 @@
  */
 $(function() {
     // prevent user to type in random email
-    $("#id_email").attr('readonly', true);
-    $("#id_verify_email").attr('readonly', true);
+    //$("#id_email").attr('readonly', true);
+    //$("#id_verify_email").attr('readonly', true);
     // hook up autocomplete for first and last name field
-    $("#id_first_name, #id_last_namea").autocomplete({
+    $("#id_first_name, #id_last_name").autocomplete({
         source: function(request, response) {
             var self = this;
+            var field_name = this.element.attr('name');
+            var data = {};
+            data[field_name] = request.term;
             $.ajax({
                 url: "http://localhost:5000/staff",
                 dataType: "jsonp",
-                data: {
-                    firstname: request.term
-                },
+                data: data,
                 success: function(data) {
                     console.log(data);
                     response($.map(data.staff, function(val) {
                         return {
-                            'label': val.first_name + " " + val.last_name,
+                            'label': val.first_name + " " + val.last_name + " (" + val.email + ")",
                             'value': val
                         };
                     }));

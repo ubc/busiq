@@ -40,18 +40,18 @@ def getStaffFields():
 
 parser = reqparse.RequestParser()
 parser.add_argument('q', type=str)
-parser.add_argument('firstname', type=str)
-parser.add_argument('lastname', type=str)
+parser.add_argument('first_name', type=str)
+parser.add_argument('last_name', type=str)
 
 
 class Busiq(restful.Resource):
     def get(self):
         args = parser.parse_args()
         query = db.session.query(Staff)
-        if args['firstname']:
-            filter = query.filter(Staff.first_name.like('%'+args['firstname']+'%'))
-        elif args['lastname']:
-            filter = query.filter(Staff.last_name.like('%'+args['lastname']+'%'))
+        if args['first_name']:
+            filter = query.filter(Staff.first_name.like('%'+args['first_name']+'%'))
+        elif args['last_name']:
+            filter = query.filter(Staff.last_name.like('%'+args['last_name']+'%'))
         else:
             filter = db.session.query(Staff). \
                 filter(or_(Staff.first_name.like('%'+args['q']+'%'),
