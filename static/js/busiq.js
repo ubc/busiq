@@ -27,7 +27,7 @@ $(function() {
                 }
             });
         },
-        minLength: 3,
+        minLength: 2,
         select: function(event, ui) {
             // populate fields when selected
             for (var id in ui.item.value) {
