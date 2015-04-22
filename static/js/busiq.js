@@ -9,9 +9,15 @@ $(function() {
     $("#id_first_name, #id_last_name, #id_email").autocomplete({
         source: function(request, response) {
             var self = this;
-            var field_name = this.element.attr('name');
-            var data = {};
-            data[field_name] = request.term;
+            var first_name = $('#id_first_name').val();
+            var last_name = $('#id_last_name').val();
+            var email = $('#id_email').val();
+            var data = {
+                first_name: first_name,
+                last_name: last_name,
+                email: email
+            };
+            //data[field_name] = request.term;
             $.ajax({
                 url: "http://localhost:5000/staff",
                 dataType: "jsonp",
