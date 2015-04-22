@@ -4,11 +4,10 @@ from flask.ext import restful
 from flask.ext.restful import reqparse, fields, marshal
 from flask.ext.restful_extend import support_jsonp
 from flask.ext.sqlalchemy import SQLAlchemy
-from sqlalchemy import or_
 
 
 app = Flask(__name__)
-db_uri = os.environ.get('SQLALCHEMY_DATABASE_URI')
+db_uri = os.environ.get('DATABASE_URI')
 app.config['SQLALCHEMY_DATABASE_URI'] = db_uri if db_uri else 'sqlite:///test.db'
 app.debug = True
 app.config['SQLALCHEMY_ECHO'] = True
