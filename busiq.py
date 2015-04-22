@@ -1,3 +1,4 @@
+import os
 from flask import Flask
 from flask.ext import restful
 from flask.ext.restful import reqparse, fields, marshal
@@ -7,7 +8,8 @@ from sqlalchemy import or_
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
+db_uri = os.environ.get('SQLALCHEMY_DATABASE_URI')
+app.config['SQLALCHEMY_DATABASE_URI'] = db_uri if not db_uri else 'sqlite:///test.db'
 app.debug = True
 app.config['SQLALCHEMY_ECHO'] = True
 api = restful.Api(app)
@@ -31,6 +33,11 @@ class Staff(db.Model):
 
 
 def getStaffFields():
+    """
+    For marshal
+
+    :return: fields that we want to jsonify
+    """
     return {
         'first_name': fields.String,
         'last_name': fields.String,
@@ -49,19 +56,19 @@ class Busiq(restful.Resource):
         args = parser.parse_args()
         query = db.session.query(Staff)
         if args['first_name']:
-            db_filter = query.filter(Staff.first_name.like('%'+args['first_name']+'%'))
+            db_filter = query.filter(Staff.first_name.like(args['first_name']+'%'))
         elif args['last_name']:
-            db_filter = query.filter(Staff.last_name.like('%'+args['last_name']+'%'))
+            db_filter = query.filter(Staff.last_name.like(args['last_name']+'%'))
         elif args['email']:
             # allow user to use first name or last name to search in email field
             db_filter = query. \
-                filter(or_(Staff.first_name.like('%'+args['email']+'%'),
-                           Staff.last_name.like('%'+args['email']+'%'),
-                           Staff.email.like('%'+args['email']+'%')))
+                filter(or_(Staff.first_name.like(args['email']+'%'),
+                           Staff.last_name.like(args['email']+'%'),
+                           Staff.email.like(args['email']+'%')))
         else:
             return {'staff': {}}
 
-        result = db_filter.order_by(Staff.first_name).all()
+        result = db_filter.order_by(Staff.first_name).limit(30).all()
 
         return {'staff': marshal(result, getStaffFields())}
 
