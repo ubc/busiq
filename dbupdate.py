@@ -2,7 +2,10 @@ import os
 import sys
 import cx_Oracle
 import sqlite3
+from math import ceil
 
+# insert 50 record at a time
+batch_num = 50
 insert_prefix = 'INSERT INTO staff (first_name, last_name, email) VALUES '
 inserts = []
 
@@ -19,13 +22,16 @@ ora_cur.execute("select * from CTLT_IAM_EMAIL_LOOKUP")
 
 
 def sqlite_insert(rows):
-    sqlite_conn.execute(insert_prefix + ','.join(rows))
+    # sqlite that comes with python 2.6 doesn't support insert multiple rows in one insert
+    # so one insert at a time
+    for row in rows:
+        sqlite_conn.execute(insert_prefix + '(' + ','.join('"' + item + '"' for item in row) + ')')
     sqlite_conn.commit()
 
 
 for i, result in enumerate(ora_cur):
-    inserts.append('(' + ','.join('"' + item + '"' for item in result) + ')')
-    if i % 50 == 0:
+    inserts.append(result)
+    if i % batch_num == 0:
         sys.stdout.write('.')
         sqlite_insert(inserts)
         del inserts[:]
