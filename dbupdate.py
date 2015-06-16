@@ -6,7 +6,7 @@ from math import ceil
 
 # insert 50 record at a time
 batch_num = 50
-insert_prefix = 'INSERT INTO staff (first_name, last_name, email) VALUES '
+insert_prefix = 'INSERT INTO staff (first_name, last_name, email, employee_id) VALUES (?, ?, ?, ?)'
 inserts = []
 
 ora_uri = os.environ.get('ORACLE_URI')
@@ -24,8 +24,10 @@ ora_cur.execute("select * from CTLT_IAM_EMAIL_LOOKUP")
 def sqlite_insert(rows):
     # sqlite that comes with python 2.6 doesn't support insert multiple rows in one insert
     # so one insert at a time
-    for row in rows:
-        sqlite_conn.execute(insert_prefix + '(' + ','.join('"' + item + '"' for item in row) + ')')
+    # for row in rows:
+    #     clean_row = [item if item is not None else 'NULL' for item in row]
+    #     sqlite_conn.execute(insert_prefix + '(' + ','.join('"' + item + '"' for item in clean_row) + ')')
+    sqlite_conn.executemany(insert_prefix, rows)
     sqlite_conn.commit()
 
 

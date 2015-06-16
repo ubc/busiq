@@ -21,11 +21,13 @@ class Staff(db.Model):
     first_name = db.Column(db.String(100))
     last_name = db.Column(db.String(100))
     email = db.Column(db.String(120))
+    employee_id = db.Column(db.String(10))
 
-    def __init__(self, first_name, last_name, email):
+    def __init__(self, first_name, last_name, email, employee_id):
         self.first_name = first_name
         self.last_name = last_name
         self.email = email
+        self.employee_id = employee_id
 
     def __repr__(self):
         return '<Staff %r>' % self.first_name + self.last_name
