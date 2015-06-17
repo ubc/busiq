@@ -21,16 +21,13 @@
 @ubcpress.ca
 @vch.ca
 @viha.ca
-@ubc.ca
 @uvic.ca
 @mcmcaster.ca
-@mail.ubc.ca
 @utoronto.ca
 @ualberta.ca
-@sauder.ubc.ca
 @sfu.ca
-@ubc.ca
 @gov.bc.ca
+ubc.ca
 .edu
 .ac
 .govt
