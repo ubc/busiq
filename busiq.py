@@ -4,7 +4,7 @@ from flask.ext import restful
 from flask.ext.restful import reqparse, fields, marshal
 from flask.ext.restful_extend import support_jsonp
 from flask.ext.sqlalchemy import SQLAlchemy
-
+from sqlalchemy import or_
 
 app = Flask(__name__)
 db_uri = os.environ.get('DATABASE_URI')
@@ -17,7 +17,7 @@ db = SQLAlchemy(app)
 
 
 whitelist = []
-with open('whitelist.txt') as f:
+with open(os.path.dirname(os.path.realpath(__file__)) + '/whitelist.txt') as f:
     lines = f.readlines()
     whitelist = [line.rstrip() for line in lines]
 
@@ -73,11 +73,13 @@ class Busiq(restful.Resource):
             return {'staff': {}}
 
         # filter empty emails
-        query.filter(Staff.email.isnot(None))
+        query = query.filter(Staff.email.isnot(None))
 
         # filter based on white list
-        for term in whitelist:
-            query.filter(Staff.email.like('%' + term + '%'))
+        clauses = or_(* [Staff.email.like('%' + term + '%') for term in whitelist])
+        query = query.filter(clauses)
+        # for term in whitelist:
+        #     query = query.filter(Staff.email.like('%' + term + '%'))
 
         result = query.order_by(Staff.first_name).limit(30).all()
 
