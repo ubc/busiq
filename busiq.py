@@ -16,6 +16,12 @@ support_jsonp(api)
 db = SQLAlchemy(app)
 
 
+whitelist = []
+with open('whitelist.txt') as f:
+    lines = f.readlines()
+    whitelist = [line.rstrip() for line in lines]
+
+
 class Staff(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(100))
@@ -65,6 +71,13 @@ class Busiq(restful.Resource):
 
         if not args['first_name'] and not args['last_name'] and not args['email']:
             return {'staff': {}}
+
+        # filter empty emails
+        query.filter(Staff.email.isnot(None))
+
+        # filter based on white list
+        for term in whitelist:
+            query.filter(Staff.email.like('%' + term + '%'))
 
         result = query.order_by(Staff.first_name).limit(30).all()
 
