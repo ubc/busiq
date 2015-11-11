@@ -19,7 +19,7 @@ $(function() {
             };
             //data[field_name] = request.term;
             $.ajax({
-                url: "http://busiq.ctlt.ubc.ca/staff",
+                url: window.location.protocol + "//busiq.ctlt.ubc.ca/staff",
                 dataType: "jsonp",
                 data: data,
                 success: function(data) {
